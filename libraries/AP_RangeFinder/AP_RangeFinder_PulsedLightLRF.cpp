@@ -109,10 +109,11 @@ void AP_RangeFinder_PulsedLightLRF::timer(void)
             set_status(RangeFinder::RangeFinder_NoData);
         }
         if (!v2_hardware) {
-            // for v1, v3, and v3hp we start PHASE_MEASURE immediately after PHASE_COLLECT
-            phase = PHASE_MEASURE;
-        } else {
             // for v2 hw we use continuous mode
+            phase = PHASE_MEASURE;
+        }
+        if (!v3hp_hardware && !v3_hardware) {
+            // for v3 and v3hp we start PHASE_MEASURE immediately after PHASE_COLLECT
             break;
         }
     }
